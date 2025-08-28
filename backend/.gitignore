@@ -1,0 +1,6 @@
+my_settings.py
+*.sqlite3
+venv/
+__pycache__/
+*.pyc
+media/

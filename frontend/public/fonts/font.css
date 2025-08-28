@@ -1,0 +1,84 @@
+/* public/fonts/font.css */
+
+  /* GmarketSans */
+  @font-face {
+    font-family: 'GmarketSans';
+    src: url('/fonts/GmarketSans/GmarketSansTTFLight.ttf') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'GmarketSans';
+    src: url('/fonts/GmarketSans/GmarketSansTTFMedium.ttf') format('truetype');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'GmarketSans';
+    src: url('/fonts/GmarketSans/GmarketSansTTFBold.ttf') format('truetype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+  }
+
+  /* IBM_Plex_Sans_KR */
+  @font-face {
+    font-family: 'IBM_Plex_Sans_KR';
+    src: url('/fonts/IBM_Plex_Sans_KR/IBMPlexSansKR-Regular.ttf') format('truetype');
+    font-weight: 400; /* Regular */
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'IBM_Plex_Sans_KR';
+    src: url('/fonts/IBM_Plex_Sans_KR/IBMPlexSansKR-Medium.ttf') format('truetype');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'IBM_Plex_Sans_KR';
+    src: url('/fonts/IBM_Plex_Sans_KR/IBMPlexSansKR-SemiBold.ttf') format('truetype');
+    font-weight: 600; /* SemiBold */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'IBM_Plex_Sans_KR';
+    src: url('/fonts/IBM_Plex_Sans_KR/IBMPlexSansKR-Bold.ttf') format('truetype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('/fonts/nanum-barun-gothic/NanumBarunGothicBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src: url('/fonts/nanum-square-round/NanumSquareRoundR.ttf') format('truetype');
+    font-weight: 400; /* ✅ regular → 400 */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src: url('/fonts/nanum-square-round/NanumSquareRoundB.ttf') format('truetype');
+    font-weight: 700; /* ✅ bold → 700 */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src: url('/fonts/nanum-square-round/NanumSquareRoundEB.ttf') format('truetype');
+    font-weight: 800; /* ✅ Extra Bold → 800 */
+    font-style: normal;
+  }
+  
+
+  
+  
