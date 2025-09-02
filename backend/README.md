@@ -209,26 +209,6 @@ CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://localhost:3001,https://lean-ai
 - **인증 필요**: 채용 정보 관리, 뉴스레터 발송
 - **관리자 전용**: 문의 답변, 구독자 관리
 
-## 🧪 테스트
-
-```bash
-# 테스트 실행
-python manage.py test
-
-# 특정 앱 테스트
-python manage.py test management
-python manage.py test newsletter
-```
-
-## 📦 배포
-
-### Render 배포
-
-1. Render 대시보드에서 새 Web Service 생성
-2. GitHub 저장소 연결
-3. 환경 변수 설정
-4. 자동 배포 활성화
-
 ### 환경 변수 (배포용)
 
 ```env
