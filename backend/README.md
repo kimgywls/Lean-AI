@@ -6,40 +6,39 @@
 
 Lean-AI는 AI 솔루션을 도입하고자 하는 기업들을 위한 종합적인 웹 서비스로, 랜딩 페이지를 중심으로 기업 소개, 서비스 안내, 뉴스룸 및 관리자 기능으로 구성되어 있습니다.
 
-## 🏗️ 아키텍처
+## 🏗️ 기술 스택
 
-- **Backend**: Django 5.2 + Django REST Framework
-- **Database**: PostgreSQL
-- **Authentication**: JWT (JSON Web Token)
-- **API Documentation**: Swagger/OpenAPI (drf-spectacular)
-- **Deployment**: Render
+| 구분                  | 기술                               |
+| --------------------- | ---------------------------------- |
+| **Backend**           | Django 5.2 + Django REST Framework |
+| **Database**          | SQLite                             |
+| **Authentication**    | JWT (JSON Web Token)               |
+| **API Documentation** | Swagger/OpenAPI (drf-spectacular)  |
 
 ## 🚀 주요 기능
 
-### 1. 문의 관리 시스템
+### 📝 문의 관리 시스템
 
-- **문의 등록**: 사용자가 회사 정보, 연락처, 문의 내용을 등록
-- **Slack 알림**: 새 문의 접수 시 자동으로 Slack으로 알림 전송
-- **관리자 답변**: 관리자가 문의에 대한 답변 작성 및 이메일 발송
-- **문의 이력**: 모든 문의 내역 조회 및 관리
+- **문의 등록**: 사용자 문의 접수 및 Slack 알림
+- **관리자 답변**: 답변 작성 및 이메일 자동 발송
+- **문의 이력**: 전체 문의 내역 조회 및 관리
 
-### 2. 채용 정보 관리
+### 💼 채용 정보 관리
 
-- **채용 공고 등록**: AI 관련 직무 정보 등록
-- **채용 정보 조회**: 등록된 채용 정보 목록 및 상세 내용 조회
-- **논리 삭제**: 채용 공고 마감 시 논리적 삭제 처리
+- **채용 공고**: AI 관련 직무 정보 등록 및 관리
+- **논리 삭제**: 채용 공고 마감 시 안전한 삭제 처리
 
-### 3. 뉴스레터 시스템
+### 📧 뉴스레터 시스템
 
-- **구독자 관리**: 이메일 구독 신청 및 구독자 목록 관리
-- **뉴스레터 발송**: 제목, 내용, 첨부파일을 포함한 뉴스레터 발송
-- **템플릿 관리**: 자주 사용하는 뉴스레터 내용을 템플릿으로 저장
-- **발송 이력**: 뉴스레터 발송 내역 및 결과 추적
+- **구독자 관리**: 이메일 구독 신청 및 목록 관리
+- **뉴스레터 발송**: 제목, 내용, 첨부파일 포함 발송
+- **템플릿 관리**: 자주 사용하는 내용 저장 및 재사용
+- **발송 이력**: 발송 내역 및 결과 추적
 
-### 4. 관리자 인증
+### 🔐 관리자 인증
 
-- **JWT 인증**: 관리자 전용 로그인 시스템
-- **권한 관리**: 관리자 권한에 따른 기능 접근 제어
+- **JWT 인증**: 보안 로그인 시스템
+- **권한 관리**: 기능별 접근 제어
 
 ## 📁 프로젝트 구조
 
@@ -50,13 +49,13 @@ backend/
 │   ├── urls.py            # 메인 URL 설정
 │   └── wsgi.py            # WSGI 설정
 ├── management/             # 문의 및 채용 관리 앱
-│   ├── models.py          # 문의, 채용 모델
+│   ├── models.py          # 데이터 모델
 │   ├── views.py           # API 뷰
 │   ├── serializers.py     # 데이터 직렬화
 │   ├── urls.py            # URL 라우팅
 │   └── utils.py           # 유틸리티 함수
 ├── newsletter/             # 뉴스레터 관리 앱
-│   ├── models.py          # 구독자, 뉴스레터 모델
+│   ├── models.py          # 데이터 모델
 │   ├── views.py           # API 뷰
 │   ├── serializers.py     # 데이터 직렬화
 │   └── urls.py            # URL 라우팅
@@ -66,12 +65,12 @@ backend/
 
 ## 🛠️ 설치 및 실행
 
-### 1. 환경 요구사항
+### 환경 요구사항
 
 - Python 3.13+
 - pip
 
-### 2. 설치 과정
+### 설치 과정
 
 ```bash
 # 저장소 클론
@@ -88,7 +87,7 @@ pip install -r requirements.txt
 
 # 환경 변수 설정
 cp .env.example .env
-# .env 파일에 데이터베이스 정보 및 API 키 설정
+# .env 파일에 실제 값 설정
 
 # 데이터베이스 마이그레이션
 python manage.py migrate
@@ -96,45 +95,25 @@ python manage.py migrate
 # 슈퍼유저 생성
 python manage.py createsuperuser
 
+# 기본 데이터 로드 (템플릿, 샘플 구독자 등)
+python manage.py loaddata newsletter/fixtures/default_data.json
+
 # 개발 서버 실행
 python manage.py runserver
 ```
 
-### 3. 환경 변수 설정
+### 환경 변수 설정
 
-프로젝트 루트에 `.env` 파일을 생성하고 다음 정보를 설정하세요:
-
-```bash
-# .env.example 파일을 복사하여 .env 파일 생성
-cp .env.example .env
-```
-
-`.env` 파일에 다음 정보를 설정하세요:
+`.env.example` 파일을 `.env`로 복사하고 실제 값으로 설정하세요:
 
 ```env
 # Django 설정
 DJANGO_SECRET_KEY=your-secret-key-here
 DEBUG=True
 
-# 데이터베이스 설정 (SQLite)
+# 데이터베이스 설정
 DB_ENGINE=django.db.backends.sqlite3
-DB_NAME=subscriber_db.sqlite3
-DB_USER=
-DB_PASSWORD=
-DB_HOST=
-DB_PORT=
-
-# PostgreSQL 사용 시 (SQLite 대신)
-# DB_ENGINE=django.db.backends.postgresql
-# DB_NAME=leanai_db
-# DB_USER=your_db_user
-# DB_PASSWORD=your_db_password
-# DB_HOST=localhost
-# DB_PORT=5432
-
-# 데이터베이스 경로
-DATABASE_PATH=subscriber_db.sqlite3
-BACKUP_DIR=backups
+DB_NAME=your_database_name.sqlite3
 
 # 이메일 설정 (Gmail)
 GMAIL_APP_PASSWORD=your-gmail-app-password
@@ -142,31 +121,17 @@ GMAIL_ACCOUNT=your-email@gmail.com
 
 # Slack 웹훅
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
-
-# 보안 설정
-ALLOWED_HOSTS=localhost,127.0.0.1,lean-ai.vercel.app,lean-ai-backend.onrender.com
-CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001,https://lean-ai.vercel.app,https://lean-ai-backend.onrender.com
-CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://localhost:3001,https://lean-ai.vercel.app,https://lean-ai-backend.onrender.com
 ```
 
 **⚠️ 중요**: `.env` 파일은 민감한 정보를 포함하므로 절대 Git에 커밋하지 마세요!
 
 ## 📚 API 문서
 
-### Swagger UI
-
-- **URL**: `http://localhost:8000/api/docs/`
-- **설명**: 인터랙티브한 API 문서 및 테스트 도구
-
-### ReDoc
-
-- **URL**: `http://localhost:8000/api/redoc/`
-- **설명**: 깔끔한 API 문서 뷰어
-
-### OpenAPI 스키마
-
-- **URL**: `http://localhost:8000/api/schema/`
-- **설명**: OpenAPI 3.0 스키마 JSON 파일
+| 도구               | URL                                 | 설명                            |
+| ------------------ | ----------------------------------- | ------------------------------- |
+| **Swagger UI**     | `http://localhost:8000/api/docs/`   | 인터랙티브한 API 문서 및 테스트 |
+| **ReDoc**          | `http://localhost:8000/api/redoc/`  | 깔끔한 API 문서 뷰어            |
+| **OpenAPI 스키마** | `http://localhost:8000/api/schema/` | OpenAPI 3.0 스키마 JSON         |
 
 ## 🔌 API 엔드포인트
 
@@ -197,7 +162,7 @@ CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://localhost:3001,https://lean-ai
 
 ## 🔐 인증 및 권한
 
-### JWT 토큰
+### JWT 토큰 설정
 
 - **Access Token**: 24시간 유효
 - **Refresh Token**: 1일 유효
@@ -208,18 +173,3 @@ CSRF_TRUSTED_ORIGINS=http://localhost:3000,http://localhost:3001,https://lean-ai
 - **공개 API**: 문의 등록, 구독 신청, 채용 정보 조회
 - **인증 필요**: 채용 정보 관리, 뉴스레터 발송
 - **관리자 전용**: 문의 답변, 구독자 관리
-
-### 환경 변수 (배포용)
-
-```env
-DEBUG=False
-DJANGO_SECRET_KEY=your-production-secret-key
-ALLOWED_HOSTS=your-domain.com
-CORS_ALLOWED_ORIGINS=https://your-domain.com
-```
-
-## 🔗 관련 링크
-
-- **프론트엔드**: [https://lean-ai.vercel.app](https://lean-ai.vercel.app/)
-- **관리자 페이지**: [https://lean-ai.vercel.app/admin](https://lean-ai.vercel.app/admin)
-- **API 문서**: `https://your-backend-domain.com/api/docs/`
