@@ -1,80 +1,61 @@
 from pathlib import Path
 import os
-import sys
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
+# .env 파일 로드
+load_dotenv()
 
 # BASE_DIR는 프로젝트의 최상위 경로를 의미합니다.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# my_settings.py에 민감한 정보(SECRET_KEY, DB 정보 등)를 분리 저장합니다.
-MY_SETTINGS_PATH = os.path.join(BASE_DIR, "my_settings.py")
-sys.path.append(os.path.dirname(MY_SETTINGS_PATH))
+# 환경 변수에서 설정 가져오기
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-default-key")
 
-# my_settings.py에서 필요한 값들을 가져옵니다.
-try:
-    from my_settings import (
-        SECRET_KEY,
-        DATABASES,
-        DATABASE_PATH,
-        BACKUP_DIR,
-        GMAIL_APP_PASSWORD,
-        GMAIL_ACCOUNT,
-        SLACK_WEBHOOK_URL,
-    )
-except ImportError:
-    # my_settings.py가 없으면 환경변수로 대체
-    SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+# 데이터베이스 설정
+DB_ENGINE = os.getenv("DB_ENGINE", "django.db.backends.sqlite3")
 
+if DB_ENGINE == "django.db.backends.sqlite3":
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.environ.get("DB_NAME"),
-            "USER": os.environ.get("DB_USER"),
-            "PASSWORD": os.environ.get("DB_PASSWORD"),
-            "HOST": os.environ.get("DB_HOST"),
-            "PORT": os.environ.get("DB_PORT", "5432"),
+            "ENGINE": DB_ENGINE,
+            "NAME": BASE_DIR / os.getenv("DB_NAME", "subscriber_db.sqlite3"),
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": DB_ENGINE,
+            "NAME": os.getenv("DB_NAME"),
+            "USER": os.getenv("DB_USER"),
+            "PASSWORD": os.getenv("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT", "5432"),
         }
     }
 
-    DATABASE_PATH = os.environ.get("DATABASE_PATH", "/tmp")
-    BACKUP_DIR = os.environ.get("BACKUP_DIR", "/tmp/backups")
+DATABASE_PATH = os.getenv("DATABASE_PATH", "subscriber_db.sqlite3")
+BACKUP_DIR = os.getenv("BACKUP_DIR", "backups")
 
-    GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD")
-    GMAIL_ACCOUNT = os.environ.get("GMAIL_ACCOUNT")
-    SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
-
+# 이메일 설정
+GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
+GMAIL_ACCOUNT = os.getenv("GMAIL_ACCOUNT")
+SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
 
 # 디버그 모드 (배포 환경에서는 반드시 False로 변경!)
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
-# 허용된 호스트 (배포 시 도메인 추가 필요)
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "lean-ai.vercel.app",
-    "lean-ai-backend.onrender.com",
-]
+# 허용된 호스트
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 # CORS 설정
 CORS_ALLOW_ALL_ORIGINS = True
 
 # CORS 허용 origin 목록
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "https://lean-ai.vercel.app",
-    "https://lean-ai-backend.onrender.com",
-    "https://domain.com",
-]
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001").split(",")
 
 # CSRF 신뢰할 수 있는 origin
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",     
-    "http://localhost:3001",      
-    "https://lean-ai.vercel.app",
-    "https://lean-ai-backend.onrender.com",
-]
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "http://localhost:3000,http://localhost:3001").split(",")
 
 # 설치된 앱 목록
 INSTALLED_APPS = [
