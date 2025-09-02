@@ -147,9 +147,3 @@ src/
 ```env
 NEXT_PUBLIC_API_URL=your_backend_api_url
 ```
-
----
-
-## 📝 라이센스
-
-이 프로젝트는 Lean-AI의 내부 프로젝트입니다.
